@@ -165,7 +165,13 @@ uv run python -m ipykernel install --user \
 uv run jupyter lab
 ```
 
-Start with [`notebooks/01_fleet_overview.ipynb`](notebooks/01_fleet_overview.ipynb). It connects to TimescaleDB using `DATABASE_URL`, inspects simulation runs, retrieves the latest state for each vehicle, and builds a first fleet-speed time series.
+Start with the notebook sequence:
+
+1. [`notebooks/01_fleet_overview.ipynb`](notebooks/01_fleet_overview.ipynb)  
+   Connects to TimescaleDB using `DATABASE_URL`, inspects simulation runs, retrieves the latest state for each vehicle, and builds a first fleet-speed time series.
+
+2. [`notebooks/02_disruption_impact_analysis.ipynb`](notebooks/02_disruption_impact_analysis.ipynb)  
+   Reconstructs disruption episodes from `sc_events`, correlates them with `sc_fleet_telemetry`, builds BEFORE / DURING / AFTER event windows, and quantifies the effects of traffic, weather, mechanical failures, refueling stops, and reefer temperature excursions.
 
 The notebooks are intended for SQL exploration, time-series analysis, visualization, and communicating analytical findings. They do not duplicate simulator behavior.
 
