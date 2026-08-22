@@ -1,0 +1,42 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: supply_chain_timescale
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-supply_chain}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supply_chain_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-supply_chain}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+      - ./sql/init:/docker-entrypoint-initdb.d:ro
+    command: >
+      postgres
+      -c shared_preload_libraries=timescaledb
+      -c max_connections=200
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-supply_chain} -d ${POSTGRES_DB:-supply_chain}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  grafana:
+    image: grafana/grafana:11.0.0
+    container_name: supply_chain_grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+
+volumes:
+  timescale_data:
+  grafana_data:

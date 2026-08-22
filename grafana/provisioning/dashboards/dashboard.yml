@@ -1,0 +1,10 @@
+apiVersion: 1
+providers:
+  - name: Supply Chain Dashboards
+    orgId: 1
+    folder: Supply Chain
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards

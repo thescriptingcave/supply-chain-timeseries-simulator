@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Local configuration / secrets
+.env
+.env.*
+!.env.example
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Generated data and database artifacts
+data/
+*.parquet
+*.csv
+*.log
+*.bak
+*.dump
+
+# Archives / temporary packages
+*.zip
+*.tar
+*.tar.gz
