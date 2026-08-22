@@ -66,6 +66,7 @@ validation
 │   ├── validation/          # Scenario and acceptance validation SQL
 │   └── analytics/           # Representative analytical queries
 ├── docs/                    # Requirements, architecture, lifecycle, rules, acceptance docs
+├── notebooks/               # Jupyter analytics and time-series exploration
 ├── grafana/                 # Supply Chain Grafana provisioning
 ├── docker-compose.yaml
 ├── pyproject.toml
@@ -149,6 +150,24 @@ uv run python -m scripts.stream_supply_chain_v3 \
 ```
 
 This deterministically exercises traffic, weather, mechanical, fuel-stop, and reefer behavior on separate concurrent shipments.
+
+## Jupyter analytics
+
+Jupyter is provided as a separate analytics layer over the simulator. Core simulation logic remains in the tested Python package.
+
+Install the notebook dependency group and launch JupyterLab:
+
+```bash
+uv sync --group notebook
+uv run python -m ipykernel install --user \
+  --name supply-chain-timeseries \
+  --display-name "Supply Chain Time-Series"
+uv run jupyter lab
+```
+
+Start with [`notebooks/01_fleet_overview.ipynb`](notebooks/01_fleet_overview.ipynb). It connects to TimescaleDB using `DATABASE_URL`, inspects simulation runs, retrieves the latest state for each vehicle, and builds a first fleet-speed time series.
+
+The notebooks are intended for SQL exploration, time-series analysis, visualization, and communicating analytical findings. They do not duplicate simulator behavior.
 
 ## Core data model
 

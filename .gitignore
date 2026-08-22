@@ -33,3 +33,4 @@ data/
 *.zip
 *.tar
 *.tar.gz
+.ipynb_checkpoints/
