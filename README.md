@@ -165,13 +165,20 @@ uv run python -m ipykernel install --user \
 uv run jupyter lab
 ```
 
-Start with the notebook sequence:
+## Notebook sequence
 
-1. [`notebooks/01_fleet_overview.ipynb`](notebooks/01_fleet_overview.ipynb)  
-   Connects to TimescaleDB using `DATABASE_URL`, inspects simulation runs, retrieves the latest state for each vehicle, and builds a first fleet-speed time series.
+1. `01_fleet_overview.ipynb` — connect to TimescaleDB, identify the latest run,
+   inspect table grain, retrieve the latest vehicle state, and plot a fleet-speed
+   time series.
 
-2. [`notebooks/02_disruption_impact_analysis.ipynb`](notebooks/02_disruption_impact_analysis.ipynb)  
-   Reconstructs disruption episodes from `sc_events`, correlates them with `sc_fleet_telemetry`, builds BEFORE / DURING / AFTER event windows, and quantifies the effects of traffic, weather, mechanical failures, refueling stops, and reefer temperature excursions.
+2. `02_disruption_impact_analysis.ipynb` — analyze disruption episodes and
+   measure their effects on vehicle speed, fuel level, and reefer cargo
+   temperature using before/during/after time-series windows.
+
+3. `03_shipment_performance_analysis.ipynb` — analyze shipment schedule
+   performance, on-time delivery, departure and arrival variance, transit buffer
+   consumption, route performance, disruption exposure, and the different
+   pathways that produce late deliveries.
 
 The notebooks are intended for SQL exploration, time-series analysis, visualization, and communicating analytical findings. They do not duplicate simulator behavior.
 

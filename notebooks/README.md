@@ -71,6 +71,54 @@ vehicle stops during mechanical failures and refueling, fuel replenishment durin
 fuel stops, and cargo-temperature excursions that occur independently of vehicle
 movement.
 
+### 03 — Shipment Performance Analysis
+
+`03_shipment_performance_analysis.ipynb`
+
+Analyzes shipment execution, schedule performance, route behavior, and the business impact of operational disruptions.
+
+The notebook combines shipment data from `sc_shipments` with route metadata from
+`sc_routes`, disruption events from `sc_events`, and derived performance metrics.
+
+Shipment performance measures include:
+
+- scheduled travel duration
+- actual travel duration
+- departure variance
+- arrival variance
+- on-time delivery
+- transit buffer consumption
+- schedule margin
+- route-level performance
+
+The notebook demonstrates:
+
+- shipment-level KPI calculation
+- datetime arithmetic with Pandas
+- on-time delivery analysis
+- late-shipment root-cause analysis
+- temporal joins between shipments and events
+- distinction between late departure and in-transit delay
+- route baseline versus scheduled travel time
+- schedule buffer and transit buffer consumption
+- low-margin on-time shipment identification
+- route-level aggregation
+- disruption-to-business-outcome analysis
+- construction of a one-row-per-shipment analytical feature table
+
+The current validation dataset demonstrates multiple pathways to late delivery.
+
+Some shipments arrive late because they depart behind schedule even when no
+in-transit disruption occurs. Other shipments depart on time but become late
+after mechanical breakdowns consume their available transit schedule buffer.
+
+The analysis also shows that traffic congestion, heavy rain, refueling stops, and
+reefer temperature excursions can produce measurable operational effects without
+necessarily causing late delivery.
+
+This distinction between operational disruption and customer-facing service
+impact is a central analytical finding of the notebook.
+
 ### Planned notebooks
 
 Future notebooks will extend the analytics layer into areas such as:
